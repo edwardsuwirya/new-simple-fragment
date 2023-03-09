@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        navigate(FragmentName.LOGIN_FRAGMENT)
+        navigate(FragmentName.LOGIN_FRAGMENT, null)
     }
 
     private fun onFragmentTransaction(fragment: Fragment) {
@@ -21,9 +21,13 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
         }
     }
 
-    override fun navigate(fragmentId: FragmentName) {
+    override fun navigate(fragmentId: FragmentName, bundle: Bundle?) {
         when (fragmentId) {
-            FragmentName.HOME_FRAGMENT -> onFragmentTransaction(homeFragment)
+            FragmentName.HOME_FRAGMENT -> {
+                val fragment = homeFragment
+                fragment.arguments = bundle
+                onFragmentTransaction(homeFragment)
+            }
             FragmentName.CONTACT_US_FRAGMENT -> onFragmentTransaction(contactUsFragment)
             else -> onFragmentTransaction(loginFragment)
         }

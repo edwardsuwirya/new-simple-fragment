@@ -36,7 +36,9 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginBinding.apply {
             btnLogin.setOnClickListener {
-                fragmentNav?.navigate(FragmentName.HOME_FRAGMENT)
+                val bundle = Bundle()
+                bundle.putString("name", "Enigma")
+                fragmentNav?.navigate(FragmentName.HOME_FRAGMENT, bundle)
             }
         }
     }

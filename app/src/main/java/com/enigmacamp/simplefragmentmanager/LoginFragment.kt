@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.enigmacamp.simplefragmentmanager.databinding.FragmentLoginBinding
+import com.enigmacamp.simplefragmentmanager.navigation.NavigationUtil
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,7 +19,7 @@ import com.enigmacamp.simplefragmentmanager.databinding.FragmentLoginBinding
 class LoginFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var loginBinding: FragmentLoginBinding
-    private var fragmentNav: FragmentNavigation? = null
+    private var fragmentNav: NavigationUtil? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class LoginFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(navigation: FragmentNavigation) = LoginFragment().apply {
+        fun newInstance(navigation: NavigationUtil) = LoginFragment().apply {
             fragmentNav = navigation
         }
     }

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.enigmacamp.simplefragmentmanager.databinding.FragmentHomeBinding
+import com.enigmacamp.simplefragmentmanager.navigation.NavigationUtil
 
 
 /**
@@ -15,6 +17,8 @@ import android.view.ViewGroup
  */
 class HomeFragment : Fragment() {
     private var name: String = ""
+    private var fragmentNav: NavigationUtil? = null
+    private lateinit var homeBinding: FragmentHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -26,13 +30,26 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        homeBinding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        return homeBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        homeBinding.apply {
+            btnContactUs.setOnClickListener {
+                fragmentNav?.navigate(FragmentName.CONTACT_US_FRAGMENT, null)
+            }
+            btnProfile.setOnClickListener {
+            }
+        }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = HomeFragment()
+        fun newInstance(navigation: NavigationUtil) = HomeFragment().apply {
+            fragmentNav = navigation
+        }
 
     }
 }

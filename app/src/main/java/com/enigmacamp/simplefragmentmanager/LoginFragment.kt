@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.enigmacamp.simplefragmentmanager.databinding.FragmentLoginBinding
+import com.enigmacamp.simplefragmentmanager.navigation.FragmentName
+import com.enigmacamp.simplefragmentmanager.navigation.FragmentNavigation
 import com.enigmacamp.simplefragmentmanager.navigation.NavigationUtil
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,7 +41,7 @@ class LoginFragment : Fragment() {
             btnLogin.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("name", "Enigma")
-                fragmentNav?.navigate(FragmentName.HOME_FRAGMENT, bundle)
+                fragmentNav?.navigate(FragmentNavigation.NavToHome(bundle))
             }
         }
     }

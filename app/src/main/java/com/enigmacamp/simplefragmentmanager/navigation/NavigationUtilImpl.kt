@@ -1,6 +1,5 @@
 package com.enigmacamp.simplefragmentmanager.navigation
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.enigmacamp.simplefragmentmanager.*
@@ -15,8 +14,15 @@ class NavigationUtilImpl(private val fm: FragmentManager) : NavigationUtil {
     private val contactUsFragment by lazy {
         ContactUsFragment.newInstance()
     }
+    private val profileFragment by lazy {
+        ProfileFragment.newInstance()
+    }
 
-    private fun onFragmentTransaction(fragment: Fragment, tag: String, backStackTag: String?) {
+    private fun onFragmentTransaction(
+        fragment: Fragment,
+        tag: String,
+        backStackTag: String? = null
+    ) {
         fm.beginTransaction().apply {
             replace(R.id.fl_container, fragment, tag)
             backStackTag?.let {
@@ -26,18 +32,31 @@ class NavigationUtilImpl(private val fm: FragmentManager) : NavigationUtil {
         }
     }
 
-    override fun navigate(fragmentId: FragmentName, bundle: Bundle?) {
-        when (fragmentId) {
-            FragmentName.HOME_FRAGMENT -> {
-                homeFragment.arguments = bundle
-                onFragmentTransaction(homeFragment, FragmentName.HOME_FRAGMENT.name, null)
+    override fun navigate(fragmentNavigation: FragmentNavigation) {
+        when (fragmentNavigation) {
+            is FragmentNavigation.NavToHome -> {
+                homeFragment.arguments = fragmentNavigation.bundle
+                onFragmentTransaction(
+                    homeFragment,
+                    fragmentNavigation.fragmentId
+                )
             }
-            FragmentName.CONTACT_US_FRAGMENT -> onFragmentTransaction(
+            is FragmentNavigation.NavToLogin -> {
+                onFragmentTransaction(
+                    loginFragment,
+                    fragmentNavigation.fragmentId,
+                )
+            }
+            is FragmentNavigation.NavToContactUs -> onFragmentTransaction(
                 contactUsFragment,
-                FragmentName.CONTACT_US_FRAGMENT.name,
-                FragmentName.HOME_FRAGMENT.name
+                fragmentNavigation.fragmentId,
+                fragmentNavigation.backStack
             )
-            else -> onFragmentTransaction(loginFragment, FragmentName.LOGIN_FRAGMENT.name, null)
+            is FragmentNavigation.NavToProfile -> onFragmentTransaction(
+                profileFragment,
+                fragmentNavigation.fragmentId,
+                fragmentNavigation.backStack
+            )
         }
     }
 }

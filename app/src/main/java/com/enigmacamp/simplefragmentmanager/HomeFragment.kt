@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.enigmacamp.simplefragmentmanager.databinding.FragmentHomeBinding
+import com.enigmacamp.simplefragmentmanager.navigation.FragmentName
+import com.enigmacamp.simplefragmentmanager.navigation.FragmentNavigation
 import com.enigmacamp.simplefragmentmanager.navigation.NavigationUtil
 
 
@@ -38,9 +40,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         homeBinding.apply {
             btnContactUs.setOnClickListener {
-                fragmentNav?.navigate(FragmentName.CONTACT_US_FRAGMENT, null)
+                fragmentNav?.navigate(FragmentNavigation.NavToContactUs())
             }
             btnProfile.setOnClickListener {
+                fragmentNav?.navigate(FragmentNavigation.NavToProfile())
             }
         }
     }
